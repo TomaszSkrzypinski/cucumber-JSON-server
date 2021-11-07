@@ -3,7 +3,12 @@ package pl.akademiaqa.api.employee;
 import io.restassured.response.Response;
 import lombok.RequiredArgsConstructor;
 import pl.akademiaqa.api.BaseRequest;
+import pl.akademiaqa.handlers.employee.EmployeeResponse;
+import pl.akademiaqa.handlers.employee.ReadEmployeeResponse;
 import pl.akademiaqa.url.JsonServerUrl;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
@@ -12,9 +17,9 @@ public class ReadEmployeeRequest {
 
     private final BaseRequest baseRequest;
 
-    public Response readAllEmployees(){
+    public List<EmployeeResponse> readAllEmployees(){
 
-        return given()
+        return Arrays.asList(given()
                 .spec(baseRequest.requestSetup())
                 .when()
                 .get(JsonServerUrl.EMPLOYEES)
@@ -22,6 +27,7 @@ public class ReadEmployeeRequest {
                 .statusCode(200)
                 .log().ifError()
                 .extract()
-                .response();
+                .response()
+                .as(ReadEmployeeResponse[].class));
     }
 }
