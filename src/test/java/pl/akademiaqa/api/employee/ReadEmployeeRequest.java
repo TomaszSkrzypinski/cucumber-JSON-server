@@ -1,6 +1,5 @@
 package pl.akademiaqa.api.employee;
 
-import io.restassured.response.Response;
 import lombok.RequiredArgsConstructor;
 import pl.akademiaqa.api.BaseRequest;
 import pl.akademiaqa.handlers.employee.EmployeeResponse;

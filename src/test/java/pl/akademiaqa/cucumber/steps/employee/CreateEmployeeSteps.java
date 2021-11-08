@@ -1,5 +1,6 @@
 package pl.akademiaqa.cucumber.steps.employee;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
@@ -18,6 +19,16 @@ public class CreateEmployeeSteps {
 
     @When("I create new employee")
     public void i_create_new_employee() {
+        createNewEmployee();
+    }
+
+    @Given("employee already exist")
+    public void employee_already_exist() {
+        createNewEmployee();
+    }
+
+    private void createNewEmployee(){
+
         EmployeeDto defaultEmployee = employeePayload.getDefaultEmployee();
         EmployeeResponse employeeResponse = createEmployeeRequest.createEmployee(defaultEmployee);
 
