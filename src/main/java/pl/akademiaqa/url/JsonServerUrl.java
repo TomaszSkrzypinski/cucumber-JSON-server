@@ -12,6 +12,9 @@ public class JsonServerUrl {
 
     public static String getEmployeePath(int employeeId) {
         return String.format(EMPLOYEES + "%s", employeeId);
+    }
 
+    public static String getBugPath(int bugId) {
+        return String.format(BUGS + "%s", bugId);
     }
 }
