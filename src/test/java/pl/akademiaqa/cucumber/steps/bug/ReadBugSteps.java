@@ -1,5 +1,6 @@
 package pl.akademiaqa.cucumber.steps.bug;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
@@ -7,11 +8,17 @@ import pl.akademiaqa.api.bug.ReadBugRequest;
 import pl.akademiaqa.api.context.Context;
 import pl.akademiaqa.handlers.bug.BugResponse;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.*;
+
 @RequiredArgsConstructor
 public class ReadBugSteps {
 
     public final Context context;
     private final ReadBugRequest readBugRequest;
+
+    private List <BugResponse> allBugs;
 
     @Then("I can read updated bug and see status as closed")
     public void i_can_read_updated_bug_and_see_status_as_closed() {
@@ -20,6 +27,21 @@ public class ReadBugSteps {
 
         final BugResponse bugResponse = readBugRequest.readBug(bugId);
 
-        Assertions.assertThat(bugResponse.getStatus()).isEqualTo("closed");
+        assertThat(bugResponse.getStatus()).isEqualTo("closed");
+    }
+
+    @Given("I read all bugs")
+    public void i_read_all_bugs() {
+        allBugs = readBugRequest.readAllBugs();
+    }
+
+    @Then("I see created bugs on bugs list")
+    public void i_see_created_bugs_on_bugs_list() {
+        final List <BugResponse> bugsAfterCreate = readBugRequest.readAllBugs();
+        assertThat(bugsAfterCreate).hasSizeGreaterThan(allBugs.size());
+
+        context.getBugResponseList();
+        assertThat(bugsAfterCreate).containsAll(context.getBugResponseList());
     }
 }
+
