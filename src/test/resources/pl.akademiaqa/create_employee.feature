@@ -1,5 +1,6 @@
 Feature: Create new employee
 
+  @cleanEmployees
   Scenario: I am able to create new employee
     Given I read all employee
     When I create new employee

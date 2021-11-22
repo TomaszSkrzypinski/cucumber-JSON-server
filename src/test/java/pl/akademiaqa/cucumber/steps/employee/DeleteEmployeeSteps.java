@@ -4,7 +4,6 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.HttpStatus;
-import org.assertj.core.api.Assertions;
 import pl.akademiaqa.api.context.Context;
 import pl.akademiaqa.api.employee.DeleteEmployeeRequest;
 
